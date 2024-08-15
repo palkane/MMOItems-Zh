@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
@@ -23,11 +24,17 @@ import java.util.*;
 
 public class UnidentifiedItem extends ConfigItem {
     public UnidentifiedItem(Type type) {
+        // Default options
         super("unidentified", type.getItem().getType());
-
         setName("#prefix#Unidentified " + type.getName());
-        setLore(Arrays.asList("&7This item is unidentified. I must", "&7find a way to identify it!", "{tier}", "{tier}&8Item Info:",
-                "{range}&8- &7Lvl Range: &e#range#", "{tier}&8- &7Item Tier: #prefix##tier#"));
+        setLore(Arrays.asList(
+                "&7This item is unidentified. I must",
+                "&7find a way to identify it!",
+                "{tier}",
+                "{tier}&8Item Info:",
+                "{range}&8- &7Lvl Range: &e#range#",
+                "{tier}&8- &7Item Tier: #prefix##tier#"
+        ));
     }
 
     public ItemBuilder newBuilder(NBTItem item) {
@@ -86,27 +93,27 @@ public class UnidentifiedItem extends ConfigItem {
 
             // Apply changes to item
             item.getItem().setAmount(1);
-            ItemStack unidentified = MythicLib.plugin.getVersion().getWrapper().copyTexture(item)
-                    .addTag(new ItemTag("MMOITEMS_UNIDENTIFIED_ITEM", serialize(item.toItem()))).toItem();
+
+            // Save serialized item inside of NBT
+            final ItemStack unidentified = NBTItem.get(new ItemStack(material != null ? material : item.getItem().getType()))
+                    .addTag(new ItemTag("MMOITEMS_UNIDENTIFIED_ITEM", serialize(item.getItem())))
+                    .toItem();
+
+            final ItemMeta meta = unidentified.getItemMeta();
+            if (customModelData != null) meta.setCustomModelData(customModelData);
+            else if (item.getItem().hasItemMeta() && item.getItem().getItemMeta().hasCustomModelData())
+                meta.setCustomModelData(item.getItem().getItemMeta().getCustomModelData());
             unidentified.setAmount(amount);
-            ItemMeta meta = unidentified.getItemMeta();
             meta.addItemFlags(ItemFlag.values());
             meta.setUnbreakable(true);
             AdventureUtils.setDisplayName(meta, name);
             AdventureUtils.setLore(meta, lore);
-            if (customModelData != null) {
-                meta.setCustomModelData(customModelData);
-            }
             unidentified.setItemMeta(meta);
-
-            // Has model?
-            if (material != null && material.isItem()) {
-                unidentified.setType(material);
-            }
 
             return unidentified;
         }
 
+        @NotNull
         private String serialize(ItemStack item) {
             try {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -114,9 +121,8 @@ public class UnidentifiedItem extends ConfigItem {
                 dataOutput.writeObject(item);
                 dataOutput.close();
                 return Base64Coder.encodeLines(outputStream.toByteArray());
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+            } catch (Exception exception) {
+                throw new RuntimeException(exception);
             }
         }
     }

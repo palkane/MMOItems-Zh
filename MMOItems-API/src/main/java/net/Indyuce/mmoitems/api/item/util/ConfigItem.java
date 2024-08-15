@@ -19,8 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// TODO Refactor this mess
 public class ConfigItem {
     private final String id;
+    @Deprecated
     private final ItemStack icon;
 
     // updated when the plugin reloads
@@ -28,6 +30,7 @@ public class ConfigItem {
     private List<String> lore;
 
     // generated
+    @Deprecated
     private ItemStack item;
 
     public ConfigItem(String id, Material material) {
@@ -44,8 +47,8 @@ public class ConfigItem {
         this.lore = Arrays.asList(lore);
     }
 
-    /*
-     * used as util to load an item stack from a config
+    /**
+     * Used as util to load an item stack from a config
      */
     public ConfigItem(ConfigurationSection config) {
         Validate.notNull(config, "Config cannot be null");
@@ -65,11 +68,13 @@ public class ConfigItem {
         return id;
     }
 
+    @Deprecated
     public void setup(ConfigurationSection config) {
         config.set("name", getName());
         config.set("lore", getLore());
     }
 
+    @Deprecated
     public void update(ConfigurationSection config) {
         Validate.notNull(config, "Config cannot be null");
 
@@ -128,10 +133,12 @@ public class ConfigItem {
         return lore != null;
     }
 
+    @Deprecated
     public ItemStack getItem() {
         return item;
     }
 
+    @Deprecated
     public ItemStack getNewItem() {
         return item.clone();
     }
@@ -144,10 +151,10 @@ public class ConfigItem {
         this.lore = lore;
     }
 
+    @Deprecated
     protected void setItem(ItemStack item) {
         this.item = item;
     }
-
 
     /**
      * Unidentified items are ruined when, using a custom resourcepack, they get the material and
@@ -159,11 +166,13 @@ public class ConfigItem {
      * @author Gunging
      * @see #setModel(Integer)
      */
+    @Deprecated
     protected void setMaterial(@Nullable Material mat) {
         material = mat;
     }
 
     @Nullable
+    @Deprecated
     protected Material material = null;
 
     /**
@@ -176,10 +185,12 @@ public class ConfigItem {
      * @author Gunging
      * @see #setMaterial(Material)
      */
+    @Deprecated
     protected void setModel(@Nullable Integer cmd) {
         customModelData = cmd;
     }
 
     @Nullable
+    @Deprecated
     protected Integer customModelData = null;
 }

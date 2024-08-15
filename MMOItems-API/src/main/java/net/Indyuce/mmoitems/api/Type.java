@@ -18,7 +18,7 @@ import net.Indyuce.mmoitems.api.item.util.identify.UnidentifiedItem;
 import net.Indyuce.mmoitems.api.player.PlayerData;
 import net.Indyuce.mmoitems.manager.TypeManager;
 import net.Indyuce.mmoitems.stat.type.ItemStat;
-import org.apache.commons.lang.Validate;
+import net.Indyuce.mmoitems.util.MMOUtils;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -148,7 +148,7 @@ public class Type implements CooldownObject, PreloadedObject {
         postLoadAction.cacheConfig(config);
 
         name = config.getString("name", name);
-        item = read(config.getString("display", item == null ? Material.STONE.toString() : item.getType().toString()));
+        item = MMOUtils.readIcon(config.getString("display", item == null ? Material.STONE.toString() : item.getType().toString()));
         (unidentifiedTemplate = new UnidentifiedItem(this)).update(config.getConfigurationSection("unident-item"));
         loreFormat = config.getString("LoreFormat", (parent != null ? parent.loreFormat : null));
         attackCooldownKey = config.getString("attack-cooldown-key", "default");
@@ -284,14 +284,6 @@ public class Type implements CooldownObject, PreloadedObject {
 
     public UnidentifiedItem getUnidentifiedTemplate() {
         return unidentifiedTemplate;
-    }
-
-    private ItemStack read(String str) {
-        Validate.notNull(str, "Input must not be null");
-
-        String[] split = str.split(":");
-        Material material = Material.valueOf(split[0]);
-        return split.length > 1 ? MythicLib.plugin.getVersion().getWrapper().textureItem(material, Integer.parseInt(split[1])) : new ItemStack(material);
     }
 
     @Override

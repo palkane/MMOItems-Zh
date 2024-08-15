@@ -11,6 +11,7 @@ import io.lumine.mythic.lib.util.annotation.BackwardsCompatibility;
 import io.lumine.mythic.lib.version.VPotionEffectType;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.Type;
+import org.apache.commons.lang.Validate;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
@@ -21,6 +22,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -36,6 +38,22 @@ public class MMOUtils {
 
     public static boolean isColorable(@NotNull Particle particle) {
         return particle.getDataType() == Particle.DustOptions.class;
+    }
+
+
+    @NotNull
+    public static ItemStack readIcon(@NotNull String stringInput) {
+        Validate.notNull(stringInput, "Input must not be null");
+        final String[] split = stringInput.split(":");
+
+        final ItemStack stack = new ItemStack(Material.valueOf(UtilityMethods.enumName(split[0])));
+        if (split.length > 1) {
+            final ItemMeta meta = stack.getItemMeta();
+            meta.setCustomModelData(Integer.parseInt(split[1]));
+            stack.setItemMeta(meta);
+        }
+
+        return stack;
     }
 
     @BackwardsCompatibility(version = "1.21")
@@ -455,11 +473,5 @@ public class MMOUtils {
                 entities.addAll(Arrays.asList(loc.getWorld().getChunkAt(cx + x, cz + z).getEntities()));
 
         return entities;
-    }
-
-    public static ItemStack readIcon(String string) throws IllegalArgumentException {
-        String[] split = string.split(":");
-        Material material = Material.valueOf(split[0].toUpperCase().replace("-", "_").replace(" ", "_"));
-        return split.length > 1 ? MythicLib.plugin.getVersion().getWrapper().textureItem(material, Integer.parseInt(split[1])) : new ItemStack(material);
     }
 }
