@@ -52,7 +52,7 @@ public class StatManager {
                 if (Modifier.isStatic(field.getModifiers()) && Modifier.isFinal(field.getModifiers()) && field.get(null) instanceof ItemStat)
                     register((ItemStat<?, ?>) field.get(null));
             } catch (IllegalArgumentException | IllegalAccessException exception) {
-                MMOItems.plugin.getLogger().log(Level.WARNING, String.format("Couldn't register stat called '%s'", field.getName()), exception.getMessage());
+                MMOItems.plugin.getLogger().log(Level.SEVERE, String.format("Couldn't register stat called '%s'", field.getName()), exception.getMessage());
             }
 
         // Custom stats
@@ -71,13 +71,13 @@ public class StatManager {
 
         // Load stat translation objects (nothing to do with stats)
         final ConfigurationSection statOptions = new ConfigFile("/language", "stats").getConfig();
-        for (ItemStat stat : getAll())
+        for (ItemStat<?, ?> stat : getAll())
             try {
                 @Nullable Object object = statOptions.get(stat.getPath());
                 if (object == null) object = statOptions.get(stat.getLegacyTranslationPath());
                 stat.loadConfiguration(statOptions, object != null ? object : "<TranslationNotFound:" + stat.getPath() + ">");
             } catch (RuntimeException exception) {
-                MMOItems.plugin.getLogger().log(Level.WARNING, "Could not load options for stat '" + stat.getId() + "': " + exception.getMessage());
+                MMOItems.plugin.getLogger().log(Level.SEVERE, "Could not load translation info for stat '" + stat.getId() + "': " + exception.getMessage());
             }
     }
 
@@ -197,7 +197,7 @@ public class StatManager {
 
         // Safe check, this can happen with numerous extra RPG plugins
         if (stats.containsKey(stat.getId())) {
-            MMOItems.plugin.getLogger().log(Level.WARNING, "Could not register stat '" + stat.getId() + "' as a stat with the same ID already exists.");
+            MMOItems.plugin.getLogger().log(Level.SEVERE, "Could not register stat '" + stat.getId() + "' as a stat with the same ID already exists.");
             return;
         }
 

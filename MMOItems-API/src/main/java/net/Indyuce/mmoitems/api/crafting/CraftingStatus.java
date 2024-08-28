@@ -27,7 +27,7 @@ public class CraftingStatus {
 
         for (String stationId : config.getKeys(false)) {
             if (!MMOItems.plugin.getCrafting().hasStation(stationId)) {
-                MMOItems.plugin.getLogger().log(Level.WARNING,
+                MMOItems.plugin.getLogger().log(Level.SEVERE,
                         "An error occurred while trying to load crafting station recipe data of '" + name + "': "
                                 + "could not find crafting station with ID '" + stationId
                                 + "', make sure you backup that player data file before the user logs off.");
@@ -44,7 +44,7 @@ public class CraftingStatus {
             for (String recipeConfigId : config.getConfigurationSection(stationId).getKeys(false)) {
                 String recipeId = config.getString(stationId + "." + recipeConfigId + ".recipe");
                 if (recipeId == null || !station.hasRecipe(recipeId)) {
-                    MMOItems.plugin.getLogger().log(Level.WARNING,
+                    MMOItems.plugin.getLogger().log(Level.SEVERE,
                             "An error occurred while trying to load crafting station recipe data of '" + name + "': "
                                     + "could not find recipe with ID '" + recipeId
                                     + "', make sure you backup that player data file before the user logs off.");
@@ -53,7 +53,7 @@ public class CraftingStatus {
 
                 Recipe recipe = station.getRecipe(recipeId);
                 if (!(recipe instanceof CraftingRecipe)) {
-                    MMOItems.plugin.getLogger().log(Level.WARNING, "An error occurred while trying to load crafting station recipe data of '"
+                    MMOItems.plugin.getLogger().log(Level.SEVERE, "An error occurred while trying to load crafting station recipe data of '"
                             + name + "': " + "recipe '" + recipe.getId() + "' is not a CRAFTING recipe.");
                     continue;
                 }
@@ -110,9 +110,12 @@ public class CraftingStatus {
             final int index = crafts.indexOf(item);
             Validate.isTrue(index >= 0, "Could not find item in queue");
             crafts.remove(index);
-            final long remaining = item.getLeft();
+
+            // Time elapsed for that item
+            final long gain = Math.min(item.getLeft(), (long) (1000 * item.getRecipe().getCraftingTime()));
+
             for (int j = index; j < crafts.size(); j++)
-                crafts.get(j).removeDelay(remaining);
+                crafts.get(j).removeDelay(gain);
         }
 
         @Nullable

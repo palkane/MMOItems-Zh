@@ -1,5 +1,6 @@
 package net.Indyuce.mmoitems.command.mmoitems;
 
+import io.lumine.mythic.lib.api.item.NBTItem;
 import io.lumine.mythic.lib.api.util.SmartGive;
 import io.lumine.mythic.lib.command.api.CommandTreeNode;
 import io.lumine.mythic.lib.command.api.Parameter;
@@ -74,8 +75,11 @@ public class GiveCommandTreeNode extends CommandTreeNode {
 				mmoitem.setData(ItemStats.SOULBOUND, new SoulboundData(target, 1));
 
 			// generate item
-			ItemStack item = random.nextDouble() < unidentify ? type.getUnidentifiedTemplate().newBuilder(mmoitem.newBuilder().buildNBT()).build()
-					: mmoitem.newBuilder().build();
+			ItemStack item = mmoitem.newBuilder().build();
+
+			// roll unidentification
+			if (random.nextDouble() < unidentify)
+				item = type.getUnidentifiedTemplate().newBuilder(NBTItem.get(item)).build();
 
 			// set amount
 			Validate.isTrue(item != null && item.getType() != Material.AIR,

@@ -136,7 +136,7 @@ public class RandomUnsocket extends DoubleStat implements ConsumableItemInteract
                     Message.RANDOM_UNSOCKET_SUCCESS.format(ChatColor.YELLOW, "#item#", MMOUtils.getDisplayName(event.getCurrentItem()), "#gem#", MMOUtils.getDisplayName(builtGem)).send(player);
                 }
 
-            } catch (Throwable e) { MMOItems.print(Level.WARNING, "无法从物品 $u{0}$b: $f{1} 中拔出宝石", "属性 §e 随机拔出", SilentNumbers.getItemName(event.getCurrentItem()), e.getMessage()); }
+            } catch (Throwable e) { MMOItems.print(Level.SEVERE, "无法从物品 $u{0}$b: $f{1} 中拔出宝石", "属性 §e 随机拔出", SilentNumbers.getItemName(event.getCurrentItem()), e.getMessage()); }
         }
 
         // Replace

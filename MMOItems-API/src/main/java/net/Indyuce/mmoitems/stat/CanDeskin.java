@@ -111,7 +111,7 @@ public class CanDeskin extends BooleanStat implements ConsumableItemInteraction 
                 final MMOItem mmoitem = template.newBuilder(playerData.getRPG()).build();
                 new SmartGive(player).give(mmoitem.newBuilder().build());
             } catch (Exception exception) {
-                MMOItems.plugin.getLogger().log(Level.WARNING, "无法检索玩家 ID 为 '" + skinId + "' 的物品皮肤 " + playerData.getUniqueId());
+                MMOItems.plugin.getLogger().log(Level.SEVERE, "无法检索玩家 ID 为 '" + skinId + "' 的物品皮肤 " + playerData.getUniqueId());
                 // No luck :(
             }
 

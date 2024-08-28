@@ -49,7 +49,7 @@ public class PlaceholderCondition extends GenericCondition {
                     throw new RuntimeException("Comparator not recognized");
             }
         } catch (RuntimeException exception) {
-            MMOItems.plugin.getLogger().log(Level.WARNING, "Could not evaluate placeholder condition expression: " + exception.getMessage());
+            MMOItems.plugin.getLogger().log(Level.SEVERE, "Could not evaluate placeholder condition expression: " + exception.getMessage());
             return false;
         }
     }

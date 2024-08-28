@@ -119,7 +119,7 @@ public class MMOItems extends MMOPlugin {
                 new WorldEditSupport();
                 getLogger().log(Level.INFO, "挂钩至 WorldEdit");
             } catch (Exception exception) {
-                getLogger().log(Level.WARNING, "无法初始化 WorldEdit 7 支持: ", exception);
+                getLogger().log(Level.SEVERE, "无法初始化 WorldEdit 7 支持: ", exception);
             }
         });
 
@@ -241,7 +241,7 @@ public class MMOItems extends MMOPlugin {
                     try {
                         new MMOItemsRewardTypes().register();
                     } catch (NullPointerException ignored) {
-                        getLogger().log(Level.WARNING, "无法挂勾到 BossShopPro");
+                        getLogger().log(Level.SEVERE, "无法挂勾到 BossShopPro");
                     }
                 }
             }).runTaskLater(this, 1L);
@@ -356,7 +356,7 @@ public class MMOItems extends MMOPlugin {
                     }
 
                 } catch (Exception exception) {
-                    MMOItems.plugin.getLogger().log(Level.WARNING, "无法初始化 RPG 插件兼容性 " + enumPlugin.getName() + ":");
+                    MMOItems.plugin.getLogger().log(Level.SEVERE, "无法初始化 RPG 插件兼容性 " + enumPlugin.getName() + ":");
                     exception.printStackTrace();
                 }
 

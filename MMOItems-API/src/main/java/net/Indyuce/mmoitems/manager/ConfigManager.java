@@ -73,9 +73,9 @@ public class ConfigManager implements Reloadable {
                     }
                     jarFile.close();
                 } catch (IOException exception) {
-                    MMOItems.plugin.getLogger().log(Level.WARNING, "Could not load default crafting stations.");
+                    MMOItems.plugin.getLogger().log(Level.SEVERE, "Could not load default crafting stations.");
                 }
-            } else MMOItems.plugin.getLogger().log(Level.WARNING, "Could not create directory!");
+            } else MMOItems.plugin.getLogger().log(Level.SEVERE, "Could not create directory!");
         }
 
         // Load files with default configuration
@@ -208,7 +208,7 @@ public class ConfigManager implements Reloadable {
             defaultItemCapacity = new NumericStatFormula(MMOItems.plugin.getConfig().getConfigurationSection("default-item-capacity"));
         } catch (IllegalArgumentException exception) {
             defaultItemCapacity = new NumericStatFormula(5, .05, .1, .3);
-            MMOItems.plugin.getLogger().log(Level.WARNING,
+            MMOItems.plugin.getLogger().log(Level.SEVERE,
                     "An error occurred while trying to load default capacity formula for the item generator, using default: "
                             + exception.getMessage());
         }
@@ -296,7 +296,7 @@ public class ConfigManager implements Reloadable {
         File folder = new File(MMOItems.plugin.getDataFolder() + "/" + path);
         if (!folder.exists())
             if (!folder.mkdir())
-                MMOItems.plugin.getLogger().log(Level.WARNING, "Could not create directory!");
+                MMOItems.plugin.getLogger().log(Level.SEVERE, "Could not create directory!");
     }
 
     /**
