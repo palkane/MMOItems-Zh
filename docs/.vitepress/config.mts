@@ -105,7 +105,7 @@ export default defineConfig({
     },
     editLink: {
       pattern:
-        "https://github.com/MagicMC-Dev/MMOItems-Zh/edit/Zh_cn/docs/src/:path",
+        "https://github.com/MagicMC-Dev/MMOItems-Zh/edit/Zh_cn/docs/:path",
       text: "在 GitHub 上编辑此页面",
     },
     socialLinks: [{ icon: "github", link: "https://github.com/MagicMC-Dev" }],
