@@ -28,6 +28,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -162,7 +163,7 @@ public class PlayerListener implements Listener {
      * player cast abilities or attacks with not the correct stats
      *
      * @deprecated This does cost some performance and that update
-     * method NEEDS some improvement in the future
+     *         method NEEDS some improvement in the future
      */
     @Deprecated
     @EventHandler
@@ -176,11 +177,21 @@ public class PlayerListener implements Listener {
      * player cast abilities or attacks with not the correct stats
      *
      * @deprecated This does cost some performance and that update
-     * method NEEDS some improvement in the future
+     *         method NEEDS some improvement in the future
      */
     @Deprecated
     @EventHandler
     public void registerInventoryUpdates2(PlayerItemHeldEvent event) {
+        PlayerData.get(event.getPlayer()).getInventory().scheduleUpdate();
+    }
+
+    /**
+     * @deprecated This does cost some performance and that update
+     *         method NEEDS some improvement in the future
+     */
+    @Deprecated
+    @EventHandler
+    public void registerInventoryUpdates3(PlayerDropItemEvent event) {
         PlayerData.get(event.getPlayer()).getInventory().scheduleUpdate();
     }
 
