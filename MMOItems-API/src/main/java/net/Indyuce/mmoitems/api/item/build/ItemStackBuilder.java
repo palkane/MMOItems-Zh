@@ -33,8 +33,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 
+// TODO getItemMeta, asNMSCopy = two clones. could be done with NO clone, simply initializing item with proper interfacing
 public class ItemStackBuilder {
     @NotNull
     private final MMOItem mmoitem;
@@ -43,6 +45,12 @@ public class ItemStackBuilder {
     private final ItemMeta meta;
     private final LoreBuilder lore;
     private final List<ItemTag> tags = new ArrayList<>();
+
+    /**
+     * @deprecated Temp fix before MI7
+     */
+    @Deprecated
+    private List<Consumer<NBTItem>> futureActions;
 
     private static final AttributeModifier FAKE_MODIFIER = VersionUtils.attrMod(new NamespacedKey(MMOItems.plugin, "decoy"), 0, Operation.ADD_NUMBER);
 
@@ -95,6 +103,15 @@ public class ItemStackBuilder {
     @NotNull
     public ItemMeta getMeta() {
         return meta;
+    }
+
+    /**
+     * @deprecated Temp fix before MI7
+     */
+    @Deprecated
+    public void addFutureAction(Consumer<NBTItem> action) {
+        if (futureActions == null) futureActions = new ArrayList<>();
+        futureActions.add(action);
     }
 
     public void addItemTag(List<ItemTag> newTags) {
@@ -241,7 +258,10 @@ public class ItemStackBuilder {
 
         item.setItemMeta(meta);
 
-        return NBTItem.get(item).addTag(tags);
+        NBTItem nbt = NBTItem.get(item).addTag(tags);
+        if (futureActions != null) futureActions.forEach(a -> a.accept(nbt));
+
+        return nbt;
     }
 
     /**

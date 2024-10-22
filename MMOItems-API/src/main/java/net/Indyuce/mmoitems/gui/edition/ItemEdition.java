@@ -1,6 +1,7 @@
 package net.Indyuce.mmoitems.gui.edition;
 
 import io.lumine.mythic.lib.MythicLib;
+import io.lumine.mythic.lib.version.VersionUtils;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.item.template.MMOItemTemplate;
 import net.Indyuce.mmoitems.stat.type.InternalStat;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class ItemEdition extends EditionInventory {
     private static final int[] slots = {19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43};
-    private static final NamespacedKey STAT_ID_KEY = new NamespacedKey(MMOItems.plugin,"StatId");
+    private static final NamespacedKey STAT_ID_KEY = new NamespacedKey(MMOItems.plugin, "StatId");
 
     public ItemEdition(Player player, MMOItemTemplate template) {
         super(player, template);
@@ -52,9 +53,14 @@ public class ItemEdition extends EditionInventory {
             ItemStack item = new ItemStack(stat.getDisplayMaterial());
             ItemMeta meta = item.getItemMeta();
             meta.addItemFlags(ItemFlag.values());
+            VersionUtils.addEmptyAttributeModifier(meta);
             meta.setDisplayName(ChatColor.GREEN + stat.getName());
             List<String> lore = MythicLib.plugin.parseColors(Arrays.stream(stat.getLore()).map(s -> ChatColor.GRAY + s).collect(Collectors.toList()));
             lore.add("");
+            if (stat.getCategory() != null) {
+                lore.add(0, "");
+                lore.add(0, ChatColor.BLUE + stat.getCategory().getLoreTag());
+            }
 
             stat.whenDisplayed(lore, getEventualStatData(stat));
 

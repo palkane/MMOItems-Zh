@@ -40,6 +40,32 @@ public class MMOUtils {
         return particle.getDataType() == Particle.DustOptions.class;
     }
 
+    public static String[] trimString(int charactersPerLine, @NotNull String... inputs) {
+        List<String> list = new ArrayList<>();
+
+        for (String input : inputs) {
+            if (input.length() <= charactersPerLine) {
+                list.add(input);
+                continue;
+            }
+
+            StringBuilder currentLine = new StringBuilder();
+
+            for (String word : input.split(" ")) {
+                if (!currentLine.isEmpty()) currentLine.append(" ");
+                currentLine.append(word);
+                if (currentLine.length() > charactersPerLine || word.endsWith("\n")) {
+                    list.add(currentLine.toString()); // Return line
+                    currentLine.setLength(0); // Empty current line
+                }
+            }
+
+            // Add last line (sometimes not necessary)
+            if (!currentLine.isEmpty()) list.add(currentLine.toString());
+        }
+
+        return list.toArray(new String[0]);
+    }
 
     @NotNull
     public static ItemStack readIcon(@NotNull String stringInput) {

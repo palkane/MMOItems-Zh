@@ -12,6 +12,7 @@ import net.Indyuce.mmoitems.api.edition.StatEdition;
 import net.Indyuce.mmoitems.api.item.build.ItemStackBuilder;
 import net.Indyuce.mmoitems.api.item.mmoitem.ReadMMOItem;
 import net.Indyuce.mmoitems.gui.edition.EditionInventory;
+import net.Indyuce.mmoitems.stat.annotation.VersionDependant;
 import net.Indyuce.mmoitems.stat.data.StringListData;
 import net.Indyuce.mmoitems.stat.data.type.StatData;
 import net.Indyuce.mmoitems.stat.type.ItemStat;
@@ -26,48 +27,53 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class CompatibleMaterials extends ItemStat<StringListData, StringListData> {
-
-    public CompatibleMaterials() {
-        super("COMPATIBLE_MATERIALS", Material.COMMAND_BLOCK, "兼容材料",
-                new String[]{"该皮肤兼容的物品材料"}, new String[]{"skin"});
+@VersionDependant(version = {1, 20, 6})
+public class CanBreak extends ItemStat<StringListData, StringListData> {
+    public CanBreak() {
+        super("CAN_BREAK",
+                Material.IRON_PICKAXE,
+                "可破坏列表",
+                new String[]{"此物品可以破坏的材料列表。该限制仅适用于冒险模式。"},
+                new String[]{"tool"});
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public StringListData whenInitialized(Object object) {
-        Validate.isTrue(object instanceof List<?>, "必须指定一个字符串列表");
+        Validate.isTrue(object instanceof List<?>, "必须指定一个字符串列表。");
         return new StringListData((List<String>) object);
     }
 
     @Override
     public void whenClicked(@NotNull EditionInventory inv, @NotNull InventoryClickEvent event) {
         if (event.getAction() == InventoryAction.PICKUP_ALL)
-            new StatEdition(inv, this).enable("在聊天中输入您要添加的材料的名称");
+            new StatEdition(inv, this).enable("在聊天栏中输入您想要的材料");
 
         if (event.getAction() != InventoryAction.PICKUP_HALF || !inv.getEditedSection().contains(getPath()))
             return;
 
-        final List<String> lore = inv.getEditedSection().getStringList(getPath());
-        if (lore.isEmpty()) return;
+        List<String> list = inv.getEditedSection().getStringList(getPath());
+        if (list.isEmpty()) return;
 
-        final String last = lore.removeLast();
-        inv.getEditedSection().set(getPath(), lore);
+        String last = list.removeLast();
+        inv.getEditedSection().set(getPath(), list);
         inv.registerTemplateEdition();
-        inv.getPlayer().sendMessage(MMOItems.plugin.getPrefix() + "成功删除 '" + last + "'");
+        inv.getPlayer().sendMessage(MMOItems.plugin.getPrefix() + "成功移除 '" + last + "'.");
     }
 
     @Override
     public void whenInput(@NotNull EditionInventory inv, @NotNull String message, Object... info) {
+        List<String> list = inv.getEditedSection().contains(getPath()) ? inv.getEditedSection().getStringList(getPath()) : new ArrayList<>();
 
-        Material mat = Material.valueOf(UtilityMethods.enumName(message));
+        // Validate material
+        final Material material = Material.valueOf(UtilityMethods.enumName(message));
 
-        List<String> lore = inv.getEditedSection().contains(getPath()) ? inv.getEditedSection().getStringList(getPath()) : new ArrayList<>();
-        lore.add(mat.name());
-        inv.getEditedSection().set(getPath(), lore);
+        list.add(material.name());
+        inv.getEditedSection().set(getPath(), list);
         inv.registerTemplateEdition();
-        inv.getPlayer().sendMessage(MMOItems.plugin.getPrefix() + "材料 " + mat.name() + " 已成功添加");
+        inv.getPlayer().sendMessage(MMOItems.plugin.getPrefix() + "材料 " + material.name() + " 成功添加");
     }
 
     @Override
@@ -76,11 +82,11 @@ public class CompatibleMaterials extends ItemStat<StringListData, StringListData
             lore.add(ChatColor.GRAY + "当前值:");
             statData.get().getList().forEach(str -> lore.add(ChatColor.GRAY + "* " + str));
         } else
-            lore.add(ChatColor.GRAY + "当前值: " + ChatColor.RED + " 与任何材料兼容");
+            lore.add(ChatColor.GRAY + "当前值: " + ChatColor.RED + "无法挖掘任何物品（冒险模式）");
 
         lore.add("");
-        lore.add(ChatColor.YELLOW + AltChar.listDash + " 单击以添加新材料");
-        lore.add(ChatColor.YELLOW + AltChar.listDash + " 右键单击以删除最后一个材料");
+        lore.add(ChatColor.YELLOW + AltChar.listDash + " 左键添加材料");
+        lore.add(ChatColor.YELLOW + AltChar.listDash + " 右键删除最后一个材料");
     }
 
     @NotNull
@@ -91,11 +97,11 @@ public class CompatibleMaterials extends ItemStat<StringListData, StringListData
 
     @Override
     public void whenApplied(@NotNull ItemStackBuilder item, @NotNull StringListData data) {
-        // Copy Array, for lore
-        List<String> compatibleMaterials = new ArrayList<>(data.getList());
-        item.getLore().insert(getPath(), compatibleMaterials);
+        List<Material> mats = data.getList().stream().map(Material::valueOf).collect(Collectors.toList());
+        item.addFutureAction(nbt -> {
+            nbt.setCanMine(mats);
+        });
 
-        // Add data
         item.addItemTag(getAppliedNBT(data));
     }
 

@@ -12,6 +12,7 @@ import net.Indyuce.mmoitems.api.item.mmoitem.ReadMMOItem;
 import net.Indyuce.mmoitems.api.player.RPGPlayer;
 import net.Indyuce.mmoitems.api.util.message.Message;
 import net.Indyuce.mmoitems.gui.edition.EditionInventory;
+import net.Indyuce.mmoitems.stat.annotation.HasCategory;
 import net.Indyuce.mmoitems.stat.data.SoulboundData;
 import net.Indyuce.mmoitems.stat.data.random.RandomStatData;
 import net.Indyuce.mmoitems.stat.data.type.StatData;
@@ -33,6 +34,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+@HasCategory(cat = "soulbound")
 public class Soulbound extends ItemStat<RandomStatData<SoulboundData>, SoulboundData> implements InternalStat, ItemRestriction {
 	public Soulbound() {
 		super("SOULBOUND", Material.ENDER_EYE, "灵魂绑定", new String[0], new String[0]);

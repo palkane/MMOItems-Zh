@@ -15,11 +15,11 @@
     <!-- Dependencies -->
     <dependencies>
 
-        <!-- Spigot API -->
+        <!-- Paper API -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.6-R0.1-SNAPSHOT</version>
+            <version>1.21.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
             <optional>true</optional>
 
@@ -46,6 +46,13 @@
             <version>1.1</version>
             <scope>provided</scope>
             <optional>true</optional>
+
+            <exclusions>
+                <exclusion>
+                    <groupId>net.md-5</groupId>
+                    <artifactId>bungeecord-chat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

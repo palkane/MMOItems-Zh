@@ -6,6 +6,7 @@ import net.Indyuce.mmoitems.api.item.build.ItemStackBuilder;
 import net.Indyuce.mmoitems.api.item.mmoitem.ReadMMOItem;
 import net.Indyuce.mmoitems.api.util.NumericStatFormula;
 import net.Indyuce.mmoitems.gui.edition.EditionInventory;
+import net.Indyuce.mmoitems.stat.annotation.HasCategory;
 import net.Indyuce.mmoitems.stat.data.DoubleData;
 import net.Indyuce.mmoitems.util.ElementStatType;
 import org.bukkit.Material;
@@ -26,9 +27,10 @@ import java.util.Optional;
  *
  * @deprecated Definitely not a perfect implementation
  */
+@HasCategory(cat = "elemental")
 @Deprecated
-public class FictiveNumericStat extends DoubleStat implements InternalStat {
-    public FictiveNumericStat(Element el, ElementStatType type) {
+public class FakeElementalStat extends DoubleStat implements InternalStat {
+    public FakeElementalStat(Element el, ElementStatType type) {
         super(type.getConcatenatedTagPath(el), Material.BARRIER, "虚拟统计", new String[0]);
     }
 

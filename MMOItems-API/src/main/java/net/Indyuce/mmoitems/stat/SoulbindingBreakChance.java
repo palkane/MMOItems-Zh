@@ -10,6 +10,7 @@ import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
 import net.Indyuce.mmoitems.api.item.mmoitem.VolatileMMOItem;
 import net.Indyuce.mmoitems.api.player.PlayerData;
 import net.Indyuce.mmoitems.api.util.message.Message;
+import net.Indyuce.mmoitems.stat.annotation.HasCategory;
 import net.Indyuce.mmoitems.stat.data.SoulboundData;
 import net.Indyuce.mmoitems.stat.type.ConsumableItemInteraction;
 import net.Indyuce.mmoitems.stat.type.DoubleStat;
@@ -24,8 +25,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
+@HasCategory(cat = "soulbound")
 public class SoulbindingBreakChance extends DoubleStat implements ConsumableItemInteraction {
-	private static final Random random = new Random();
+	private static final Random RANDOM = new Random();
 
 	public SoulbindingBreakChance() {
 		super("SOULBOUND_BREAK_CHANCE", Material.ENDER_EYE, "解除灵魂绑定机率",
@@ -55,7 +57,7 @@ public class SoulbindingBreakChance extends DoubleStat implements ConsumableItem
 			return false;
 		}
 
-		if (random.nextDouble() < soulboundBreakChance / 100) {
+		if (RANDOM.nextDouble() < soulboundBreakChance / 100) {
 			BreakSoulboundEvent called = new BreakSoulboundEvent(playerData, consumable.getMMOItem(), target);
 			Bukkit.getPluginManager().callEvent(called);
 			if (called.isCancelled())

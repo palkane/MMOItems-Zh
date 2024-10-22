@@ -10,6 +10,7 @@ import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
 import net.Indyuce.mmoitems.api.item.mmoitem.VolatileMMOItem;
 import net.Indyuce.mmoitems.api.player.PlayerData;
 import net.Indyuce.mmoitems.api.util.message.Message;
+import net.Indyuce.mmoitems.stat.annotation.HasCategory;
 import net.Indyuce.mmoitems.stat.data.SoulboundData;
 import net.Indyuce.mmoitems.stat.type.ConsumableItemInteraction;
 import net.Indyuce.mmoitems.stat.type.DoubleStat;
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
+@HasCategory(cat = "soulbound")
 public class SoulbindingChance extends DoubleStat implements ConsumableItemInteraction {
 	private static final Random random = new Random();
 

@@ -127,7 +127,7 @@ public class MMOItems extends MMOPlugin {
         saveDefaultConfig();
         configManager = new ConfigManager();
 
-        statManager.loadInternalStats();
+        statManager.loadBuiltins();
         typeManager.reload(false);
         templateManager.preloadObjects();
 

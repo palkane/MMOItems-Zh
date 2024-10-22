@@ -5,11 +5,12 @@ import io.lumine.mythic.lib.api.item.SupportedNBTTagValues;
 import net.Indyuce.mmoitems.api.item.build.ItemStackBuilder;
 import net.Indyuce.mmoitems.api.item.mmoitem.ReadMMOItem;
 import net.Indyuce.mmoitems.api.util.NumericStatFormula;
+import net.Indyuce.mmoitems.stat.annotation.HasCategory;
 import net.Indyuce.mmoitems.stat.data.DoubleData;
 import net.Indyuce.mmoitems.stat.data.type.StatData;
 import net.Indyuce.mmoitems.stat.type.DoubleStat;
 import net.Indyuce.mmoitems.stat.type.GemStoneStat;
-import net.Indyuce.mmoitems.util.VersionDependant;
+import net.Indyuce.mmoitems.stat.annotation.VersionDependant;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Material;
 import org.bukkit.inventory.meta.Damageable;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 @VersionDependant(version = {1, 20, 5})
 public class MaxItemDamage extends DoubleStat implements GemStoneStat {
     public MaxItemDamage() {
-        super("MAX_ITEM_DAMAGE", Material.DAMAGED_ANVIL, "物品耐久（原版）", new String[]{"仅适用于 1.20.5+ 物品的最大耐久。使用原版耐久实现", "（比自定义耐久稳定得多）"}, new String[]{"all"});
+        super("MAX_ITEM_DAMAGE", Material.DAMAGED_ANVIL, "物品耐久（原版）", new String[]{"仅适用于 1.20.5+ 物品的最大耐久。使用原版耐久实现（比自定义耐久稳定得多）"}, new String[]{"all"});
     }
 
     @Override

@@ -59,14 +59,22 @@
 
     <!-- Repositories -->
     <repositories>
+
         <repository>
             <id>phoenix</id>
             <url>https://nexus.phoenixdevt.fr/repository/maven-public/</url>
         </repository>
+
         <repository>
-            <id>nexus</id>
+            <id>lumine</id>
             <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
+
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+
     </repositories>
 
     <!-- Deployment -->
