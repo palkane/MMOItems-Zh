@@ -47,6 +47,14 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
+            </plugin>
         </plugins>
 
     </build>
@@ -84,6 +92,22 @@
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
 
+        <repository>
+            <id>ProtocolLib</id>
+            <url>https://repo.dmulloy2.net/repository/public/</url>
+        </repository>
+        
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+
+        <repository>
+            <id>minebench-repository</id>
+            <url>https://repo.minebench.de/</url>
+        </repository>
+
+
     </repositories>
 
     <!--
@@ -120,7 +144,7 @@
         <dependency>
             <groupId>net.Indyuce</groupId>
             <artifactId>MMOCore-API</artifactId>
-            <version>1.12-SNAPSHOT</version>
+            <version>1.12.1-SNAPSHOT</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -162,6 +186,12 @@
             <version>2.9.2</version>
             <scope>provided</scope>
             <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Mythic -->
         <dependency>
