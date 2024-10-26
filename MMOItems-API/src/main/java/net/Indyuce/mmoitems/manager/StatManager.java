@@ -8,6 +8,7 @@ import net.Indyuce.mmoitems.ItemStats;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.ConfigFile;
 import net.Indyuce.mmoitems.api.Type;
+import net.Indyuce.mmoitems.stat.annotation.DeprecatedStat;
 import net.Indyuce.mmoitems.stat.annotation.HasCategory;
 import net.Indyuce.mmoitems.stat.category.StatCategory;
 import net.Indyuce.mmoitems.stat.type.*;
@@ -60,7 +61,7 @@ public class StatManager {
                         && field.get(null) instanceof StatCategory)
                     registerCategory((StatCategory) field.get(null));
             } catch (IllegalArgumentException | IllegalAccessException exception) {
-                MMOItems.plugin.getLogger().log(Level.SEVERE, String.format("Couldn't register category called '%s'", field.getName()), exception.getMessage());
+                MMOItems.plugin.getLogger().log(Level.SEVERE, String.format("Couldn't register category called '%s': %s", field.getName(), exception.getMessage()));
             }
 
         // Load builtin stats
@@ -68,10 +69,11 @@ public class StatManager {
             try {
                 if (Modifier.isStatic(field.getModifiers())
                         && Modifier.isFinal(field.getModifiers())
-                        && field.get(null) instanceof ItemStat)
+                        && field.get(null) instanceof ItemStat
+                        && field.getAnnotation(DeprecatedStat.class) == null)
                     register((ItemStat<?, ?>) field.get(null));
             } catch (IllegalArgumentException | IllegalAccessException exception) {
-                MMOItems.plugin.getLogger().log(Level.SEVERE, String.format("Couldn't register stat called '%s'", field.getName()), exception.getMessage());
+                MMOItems.plugin.getLogger().log(Level.SEVERE, String.format("Couldn't register stat called '%s': %s", field.getName(), exception.getMessage()));
             }
 
         // Custom stats

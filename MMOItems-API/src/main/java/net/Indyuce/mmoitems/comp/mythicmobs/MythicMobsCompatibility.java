@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 
 public class MythicMobsCompatibility implements Listener {
 
@@ -28,7 +29,8 @@ public class MythicMobsCompatibility implements Listener {
         try {
             for (String faction : this.getFactions())
                 MMOItems.plugin.getStats().register(new FactionDamage(faction));
-        } catch (NullPointerException ignored) {
+        } catch (Exception exception) {
+            MMOItems.plugin.getLogger().log(Level.WARNING, "Exception while enabling MythicMobs compatibility: " + exception.getMessage());
         }
 
         Bukkit.getPluginManager().registerEvents(this, MMOItems.plugin);

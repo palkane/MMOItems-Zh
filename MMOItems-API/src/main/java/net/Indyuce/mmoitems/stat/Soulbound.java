@@ -66,9 +66,8 @@ public class Soulbound extends ItemStat<RandomStatData<SoulboundData>, Soulbound
 		item.addItemTag(getAppliedNBT(data));
 
 		// Lore stuff
-		String formattedLoreTag = Message.SOULBOUND_ITEM_LORE.getUpdated().replace("#player#", ((SoulboundData) data).getName()).replace("#level#",
-				MMOUtils.intToRoman(data.getLevel()));
-		item.getLore().insert("soulbound", formattedLoreTag.split(Pattern.quote("//")));
+        String formattedLoreTag = Message.SOULBOUND_ITEM_LORE.getFormatted().replace("#player#", data.getName()).replace("#level#", MMOUtils.intToRoman(data.getLevel()));
+        item.getLore().insert("soulbound", formattedLoreTag.split(Pattern.quote("//")));
 	}
 
 	@NotNull

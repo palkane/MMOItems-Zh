@@ -2,6 +2,7 @@ package net.Indyuce.mmoitems;
 
 import io.lumine.mythic.lib.version.VMaterial;
 import net.Indyuce.mmoitems.stat.*;
+import net.Indyuce.mmoitems.stat.annotation.DeprecatedStat;
 import net.Indyuce.mmoitems.stat.block.*;
 import net.Indyuce.mmoitems.stat.type.*;
 import org.bukkit.Material;
@@ -234,5 +235,6 @@ public class ItemStats {
      * custom durability is now {@link CustomDurability}
      */
     @Deprecated
+    @DeprecatedStat
     public static final ItemStat DURABILITY = ITEM_DAMAGE;
 }

@@ -124,7 +124,7 @@ public class ConfigManager implements Reloadable {
             if (!messages.getConfig().contains(path))
                 messages.getConfig().set(path, message.getDefault());
 
-            message.setCurrent(messages.getConfig().getString(path));
+            message.setRaw(messages.getConfig().getString(path));
         }
         messages.save();
 
@@ -239,7 +239,7 @@ public class ConfigManager implements Reloadable {
 
     @Deprecated
     public String getMessage(String path) {
-        return Message.valueOf(UtilityMethods.enumName(path)).getUpdated();
+        return Message.valueOf(UtilityMethods.enumName(path)).getFormatted();
     }
 
     @Deprecated

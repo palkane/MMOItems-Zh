@@ -51,7 +51,6 @@ public class ItemParticles extends ItemStat<ParticleData, ParticleData> {
 	@Override
 	public ParticleData whenInitialized(Object object) {
 		Validate.isTrue(object instanceof ConfigurationSection, "必须指定配置部分");
-		if (((ConfigurationSection) object).getKeys(false).size() < 1) { throw new IllegalArgumentException(""); }
 		return new ParticleData((ConfigurationSection) object);
 	}
 
