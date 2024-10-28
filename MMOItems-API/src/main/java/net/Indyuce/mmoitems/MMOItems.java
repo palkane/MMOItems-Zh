@@ -112,7 +112,7 @@ public class MMOItems extends MMOPlugin {
         getLogger().log(Level.INFO, "╚═╝     ╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝╚══════╝");
         getLogger().log(Level.INFO, "INFO   Source: phoenix-dvpmt/mmoitems    VERSION: 6.10");
         getLogger().log(Level.INFO, "       QQ: 3217962725     文件: " + getFile().getName());
-        getLogger().log(Level.INFO, "       (禁止倒卖)");
+        getLogger().log(Level.INFO, "       (此项目为开源免费项目，如果你付费购买此插件，恭喜你上当了！)");
         
         PluginUtils.isDependencyPresent("WorldEdit", u -> {
             try {
