@@ -5,6 +5,9 @@ export default defineConfig({
   title: "MMOItems 中文 Wiki",
   titleTemplate: ":title - MagicMC",
   base: "/",
+  sitemap: {
+    hostname: 'https://mmoitems.magicmc.top'
+  },
   head: [
     [ "meta", { name: "theme-color", content: "#3c8772" }],
     [ "link", { rel: "icon", href: "/icon.png" }]
