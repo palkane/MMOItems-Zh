@@ -138,7 +138,7 @@ public class BooleanStat extends ItemStat<RandomBooleanData, BooleanData> {
 
 		if (statData.isPresent()) {
 			final double chance = statData.get().getChance();
-			lore.add(ChatColor.GRAY + "当前值: " + (chance >= 1 ? ChatColor.GREEN + "Ture"
+			lore.add(ChatColor.GRAY + "当前值: " + (chance >= 1 ? ChatColor.GREEN + "True"
 					: chance <= 0 ? ChatColor.RED + "False" : ChatColor.GREEN + MythicLib.plugin.getMMOConfig().decimal.format(chance * 100) + "%"));
 
 		} else
