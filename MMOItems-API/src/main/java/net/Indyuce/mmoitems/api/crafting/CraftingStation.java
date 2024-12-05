@@ -1,7 +1,9 @@
 package net.Indyuce.mmoitems.api.crafting;
 
+import io.lumine.mythic.lib.UtilityMethods;
 import io.lumine.mythic.lib.util.PostLoadAction;
 import io.lumine.mythic.lib.util.PreloadedObject;
+import io.lumine.mythic.lib.version.Sounds;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.crafting.ingredient.inventory.IngredientInventory;
 import net.Indyuce.mmoitems.api.crafting.recipe.CheckedRecipe;
@@ -55,7 +57,7 @@ public class CraftingStation implements PreloadedObject {
         this.id = id.toLowerCase().replace("_", "-").replace(" ", "-");
         this.name = config.getString("name", "A Station With No Name");
         this.layout = MMOItems.plugin.getLayouts().getLayout(config.getString("layout", "default"));
-        this.sound = Sound.valueOf(config.getString("sound", "ENTITY_EXPERIENCE_ORB_PICKUP").toUpperCase());
+        this.sound = Sounds.fromName(UtilityMethods.enumName(config.getString("sound", "ENTITY_EXPERIENCE_ORB_PICKUP")));
 
         for (String key : config.getConfigurationSection("recipes").getKeys(false))
             try {

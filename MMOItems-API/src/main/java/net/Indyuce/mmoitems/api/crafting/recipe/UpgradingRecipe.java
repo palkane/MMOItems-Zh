@@ -1,8 +1,8 @@
 package net.Indyuce.mmoitems.api.crafting.recipe;
 
 import io.lumine.mythic.lib.api.item.NBTItem;
+import io.lumine.mythic.lib.version.Sounds;
 import net.Indyuce.mmoitems.ItemStats;
-import net.Indyuce.mmoitems.util.MMOUtils;
 import net.Indyuce.mmoitems.api.crafting.ConfigMMOItem;
 import net.Indyuce.mmoitems.api.crafting.CraftingStation;
 import net.Indyuce.mmoitems.api.crafting.ingredient.CheckedIngredient;
@@ -15,9 +15,9 @@ import net.Indyuce.mmoitems.api.item.util.ConfigItems;
 import net.Indyuce.mmoitems.api.player.PlayerData;
 import net.Indyuce.mmoitems.api.util.message.Message;
 import net.Indyuce.mmoitems.stat.data.UpgradeData;
+import net.Indyuce.mmoitems.util.MMOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
@@ -76,7 +76,7 @@ public class UpgradingRecipe extends Recipe {
 				return false;
 
 			Message.NOT_HAVE_ITEM_UPGRADE.format(ChatColor.RED).send(data.getPlayer());
-			data.getPlayer().playSound(data.getPlayer().getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 2);
+			data.getPlayer().playSound(data.getPlayer().getLocation(), Sounds.ENTITY_VILLAGER_NO, 1, 2);
 			return false;
 		}
 
@@ -94,7 +94,7 @@ public class UpgradingRecipe extends Recipe {
 				return false;
 
 			Message.MAX_UPGRADES_HIT.format(ChatColor.RED).send(data.getPlayer());
-			data.getPlayer().playSound(data.getPlayer().getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 2);
+			data.getPlayer().playSound(data.getPlayer().getLocation(), Sounds.ENTITY_VILLAGER_NO, 1, 2);
 			return false;
 		}
 
@@ -112,7 +112,7 @@ public class UpgradingRecipe extends Recipe {
 				return false;
 
 			Message.UPGRADE_FAIL_STATION.format(ChatColor.RED).send(data.getPlayer());
-			data.getPlayer().playSound(data.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 2);
+			data.getPlayer().playSound(data.getPlayer().getLocation(), Sounds.ENTITY_ITEM_BREAK, 1, 2);
 			return false;
 		}
 

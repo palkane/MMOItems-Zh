@@ -6,6 +6,7 @@ import io.lumine.mythic.lib.api.item.NBTItem;
 import io.lumine.mythic.lib.api.item.SupportedNBTTagValues;
 import io.lumine.mythic.lib.gson.JsonParser;
 import io.lumine.mythic.lib.gson.JsonSyntaxException;
+import io.lumine.mythic.lib.version.Sounds;
 import io.lumine.mythic.lib.version.VEnchantment;
 import net.Indyuce.mmoitems.ItemStats;
 import net.Indyuce.mmoitems.api.event.item.CustomDurabilityDamage;
@@ -19,7 +20,6 @@ import net.Indyuce.mmoitems.util.MMOUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -170,7 +170,7 @@ public class DurabilityItem {
 
         // Play sound when item breaks
         if (isBroken()) {
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+            player.getWorld().playSound(player.getLocation(), Sounds.ENTITY_ITEM_BREAK, 1, 1);
             PlayerData.get(player).getInventory().scheduleUpdate();
         }
 

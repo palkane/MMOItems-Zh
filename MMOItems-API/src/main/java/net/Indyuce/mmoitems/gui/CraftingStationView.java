@@ -3,6 +3,7 @@ package net.Indyuce.mmoitems.gui;
 import io.lumine.mythic.lib.MythicLib;
 import io.lumine.mythic.lib.api.item.NBTItem;
 import io.lumine.mythic.lib.api.util.SmartGive;
+import io.lumine.mythic.lib.version.Sounds;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.CustomSound;
 import net.Indyuce.mmoitems.api.crafting.CraftingStation;
@@ -23,7 +24,6 @@ import net.Indyuce.mmoitems.util.MMOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -246,13 +246,13 @@ public class CraftingStationView extends PluginInventory {
     public void processRecipe(CheckedRecipe recipe) {
         if (!recipe.areConditionsMet()) {
             Message.CONDITIONS_NOT_MET.format(ChatColor.RED).send(player);
-            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
+            player.playSound(player.getLocation(), Sounds.ENTITY_VILLAGER_NO, 1, 1);
             return;
         }
 
         if (!recipe.allIngredientsHad()) {
             Message.NOT_ENOUGH_MATERIALS.format(ChatColor.RED).send(player);
-            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
+            player.playSound(player.getLocation(), Sounds.ENTITY_VILLAGER_NO, 1, 1);
             return;
         }
 

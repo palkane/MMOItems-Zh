@@ -18,11 +18,10 @@ import net.Indyuce.mmoitems.api.crafting.ingredient.inventory.PlayerIngredient;
 import net.Indyuce.mmoitems.api.crafting.ingredient.inventory.VanillaPlayerIngredient;
 import net.Indyuce.mmoitems.api.crafting.trigger.*;
 import net.Indyuce.mmoitems.comp.mythicmobs.crafting.MythicMobsSkillTrigger;
-import org.bukkit.Bukkit;
+import net.Indyuce.mmoitems.util.PluginUtils;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.util.*;
 import java.util.function.Function;
@@ -64,12 +63,12 @@ public class CraftingManager implements Reloadable {
 		registerIngredient("mmoitem", MMOItemIngredient::new, new ConditionalDisplay("&8" + AltChar.check + " &7#amount# #level##item#", "&c" + AltChar.cross + " &7#amount# #level##item#"), NBTItem::hasType, MMOItemPlayerIngredient::new);
 
 		// MythicMobs native compatibility
-		if (Bukkit.getPluginManager().getPlugin("MythicMobs") != null) {
+		PluginUtils.isDependencyPresent("MythicMobs", unused -> {
 			/*registerIngredient("mythicitem", MythicItemIngredient::new,
 					new ConditionalDisplay("&8" + AltChar.check + " &7#amount# #item#", "&c" + AltChar.cross + " &7#amount# #item#"),
 					nbt -> nbt.hasTag("MYTHIC_TYPE"), MythicItemPlayerIngredient::new);*/
 			registerTrigger("mmskill", MythicMobsSkillTrigger::new);
-		}
+		});
 	}
 
 	public void reload() {

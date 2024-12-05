@@ -5,6 +5,7 @@ import io.lumine.mythic.lib.api.item.NBTItem;
 import io.lumine.mythic.lib.api.item.SupportedNBTTagValues;
 import io.lumine.mythic.lib.gson.JsonParser;
 import io.lumine.mythic.lib.gson.JsonSyntaxException;
+import io.lumine.mythic.lib.version.Sounds;
 import net.Indyuce.mmoitems.ItemStats;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.item.build.ItemStackBuilder;
@@ -23,7 +24,6 @@ import net.Indyuce.mmoitems.util.MMOUtils;
 import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -116,7 +116,7 @@ public class Soulbound extends ItemStat<RandomStatData<SoulboundData>, Soulbound
 			if (message) {
 				int level = new JsonParser().parse(item.getString(ItemStats.SOULBOUND.getNBTPath())).getAsJsonObject().get("Level").getAsInt();
 				Message.SOULBOUND_RESTRICTION.format(ChatColor.RED).send(player.getPlayer());
-				player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1.5f);
+				player.getPlayer().playSound(player.getPlayer().getLocation(), Sounds.ENTITY_VILLAGER_NO, 1, 1.5f);
 				player.getPlayer()
 						.damage(MMOItems.plugin.getLanguage().soulboundBaseDamage + level * MMOItems.plugin.getLanguage().soulboundPerLvlDamage);
 			}

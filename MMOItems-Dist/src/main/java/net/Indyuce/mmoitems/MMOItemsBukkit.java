@@ -7,6 +7,7 @@ import net.Indyuce.mmoitems.gui.listener.GuiListener;
 import net.Indyuce.mmoitems.listener.*;
 import net.Indyuce.mmoitems.listener.option.DroppedItems;
 import net.Indyuce.mmoitems.listener.option.SoulboundNoDrop;
+import net.Indyuce.mmoitems.util.PluginUtils;
 import org.bukkit.Bukkit;
 
 public class MMOItemsBukkit {
@@ -26,8 +27,7 @@ public class MMOItemsBukkit {
         Bukkit.getPluginManager().registerEvents(new GuiListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new BiomeChangeListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new CustomBlockListener(), plugin);
-        if (Bukkit.getPluginManager().getPlugin("PhatLoots") != null)
-            Bukkit.getPluginManager().registerEvents(new PhatLootsHook(), plugin);
+        PluginUtils.hookDependencyIfPresent("PhatLoots", true, pl -> Bukkit.getPluginManager().registerEvents(new PhatLootsHook(pl), plugin));
 
         if (plugin.getConfig().getBoolean("dropped-items.tier-glow") || plugin.getConfig().getBoolean("dropped-items.hints"))
             Bukkit.getPluginManager().registerEvents(new DroppedItems(plugin.getConfig().getConfigurationSection("dropped-items")), plugin);

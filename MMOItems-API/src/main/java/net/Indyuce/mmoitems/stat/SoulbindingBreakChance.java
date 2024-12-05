@@ -1,6 +1,7 @@
 package net.Indyuce.mmoitems.stat;
 
 import io.lumine.mythic.lib.api.item.NBTItem;
+import io.lumine.mythic.lib.version.Sounds;
 import net.Indyuce.mmoitems.ItemStats;
 import net.Indyuce.mmoitems.api.Type;
 import net.Indyuce.mmoitems.api.event.item.BreakSoulboundEvent;
@@ -18,7 +19,6 @@ import net.Indyuce.mmoitems.util.MMOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +46,7 @@ public class SoulbindingBreakChance extends DoubleStat implements ConsumableItem
 		MMOItem targetMMO = new VolatileMMOItem(target);
 		if (!targetMMO.hasData(ItemStats.SOULBOUND)) {
 			Message.NO_SOULBOUND.format(ChatColor.RED).send(player);
-			player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
+			player.playSound(player.getLocation(), Sounds.ENTITY_VILLAGER_NO, 1, 1);
 			return false;
 		}
 
@@ -66,11 +66,11 @@ public class SoulbindingBreakChance extends DoubleStat implements ConsumableItem
 			(targetMMO = new LiveMMOItem(target)).removeData(ItemStats.SOULBOUND);
 			target.getItem().setItemMeta(targetMMO.newBuilder().build().getItemMeta());
 			Message.SUCCESSFULLY_BREAK_BIND.format(ChatColor.YELLOW, "#level#", MMOUtils.intToRoman(soulbound.getLevel())).send(player);
-			player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 2);
+			player.playSound(player.getLocation(), Sounds.BLOCK_ANVIL_LAND, 1, 2);
 
 		} else {
 			Message.UNSUCCESSFUL_SOULBOUND_BREAK.format(ChatColor.RED).send(player);
-			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 0);
+			player.playSound(player.getLocation(), Sounds.ENTITY_ITEM_BREAK, 1, 0);
 		}
 
 		return true;

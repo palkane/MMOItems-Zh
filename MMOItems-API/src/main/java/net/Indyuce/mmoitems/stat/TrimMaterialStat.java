@@ -42,7 +42,7 @@ public class TrimMaterialStat extends ChooseStat implements GemStoneStat {
     public void whenApplied(@NotNull ItemStackBuilder item, @NotNull StringData data) {
         if (!(item.getMeta() instanceof ArmorMeta)) return;
 
-        @Nullable TrimMaterial material = Registry.TRIM_MATERIAL.get(NamespacedKey.minecraft(data.toString().toLowerCase()));
+        @Nullable TrimMaterial material = Registry.TRIM_MATERIAL.get(TrimPatternStat.fixNamespacedKey(data.toString().toLowerCase()));
         if (material == null) return;
 
         final ArmorMeta meta = (ArmorMeta) item.getMeta();

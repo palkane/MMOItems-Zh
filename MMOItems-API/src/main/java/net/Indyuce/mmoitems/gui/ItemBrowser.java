@@ -5,6 +5,7 @@ import io.lumine.mythic.lib.api.item.NBTItem;
 import io.lumine.mythic.lib.api.util.AltChar;
 import io.lumine.mythic.lib.api.util.ui.SilentNumbers;
 import io.lumine.mythic.lib.util.AdventureUtils;
+import io.lumine.mythic.lib.version.Sounds;
 import io.lumine.mythic.lib.version.VersionUtils;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.Type;
@@ -13,8 +14,10 @@ import net.Indyuce.mmoitems.api.item.template.MMOItemTemplate;
 import net.Indyuce.mmoitems.gui.edition.ItemEdition;
 import net.Indyuce.mmoitems.stat.BrowserDisplayIDX;
 import net.Indyuce.mmoitems.util.MMOUtils;
-import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -383,7 +386,7 @@ public class ItemBrowser extends PluginInventory {
         } else {
             if (event.getAction() == InventoryAction.PICKUP_ALL) {
                 getPlayer().getInventory().addItem(MMOItems.plugin.getItem(type, id, playerData));
-                getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
+                getPlayer().playSound(getPlayer().getLocation(), Sounds.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
             }
 
             if (event.getAction() == InventoryAction.PICKUP_HALF)

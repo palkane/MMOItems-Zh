@@ -8,12 +8,12 @@ import io.lumine.mythic.lib.api.item.NBTItem;
 import io.lumine.mythic.lib.api.item.SupportedNBTTagValues;
 import io.lumine.mythic.lib.skill.trigger.TriggerType;
 import io.lumine.mythic.lib.util.annotation.BackwardsCompatibility;
+import io.lumine.mythic.lib.version.Attributes;
 import io.lumine.mythic.lib.version.VPotionEffectType;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.Type;
 import org.apache.commons.lang.Validate;
 import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -418,7 +418,7 @@ public class MMOUtils {
         if (entity.isDead() || entity.getHealth() <= 0) return;
         if (heal < 0 && !allowNegatives) return;
 
-        final double maxHealth = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        final double maxHealth = entity.getAttribute(Attributes.MAX_HEALTH).getValue();
         entity.setHealth(Math.min(maxHealth, entity.getHealth() + heal));
     }
     //endregion

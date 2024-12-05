@@ -7,6 +7,7 @@ import io.lumine.mythic.lib.api.util.ui.FriendlyFeedbackCategory;
 import io.lumine.mythic.lib.api.util.ui.FriendlyFeedbackMessage;
 import io.lumine.mythic.lib.api.util.ui.FriendlyFeedbackProvider;
 import io.lumine.mythic.lib.api.util.ui.SilentNumbers;
+import io.lumine.mythic.lib.version.Sounds;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.crafting.ConfigMMOItem;
 import net.Indyuce.mmoitems.api.crafting.CraftingStation;
@@ -22,7 +23,6 @@ import net.Indyuce.mmoitems.api.util.message.FFPMMOItems;
 import net.Indyuce.mmoitems.api.util.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -284,7 +284,7 @@ public class CraftingRecipe extends Recipe {
                 return false;
 
             Message.CRAFTING_QUEUE_FULL.format(ChatColor.RED).send(data.getPlayer());
-            data.getPlayer().playSound(data.getPlayer().getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
+            data.getPlayer().playSound(data.getPlayer().getLocation(), Sounds.ENTITY_VILLAGER_NO, 1, 1);
             return false;
         }
         return true;

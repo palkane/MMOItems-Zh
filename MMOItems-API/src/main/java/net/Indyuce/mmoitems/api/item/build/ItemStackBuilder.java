@@ -5,6 +5,7 @@ import io.lumine.mythic.lib.api.item.ItemTag;
 import io.lumine.mythic.lib.api.item.NBTItem;
 import io.lumine.mythic.lib.gson.JsonArray;
 import io.lumine.mythic.lib.util.AdventureUtils;
+import io.lumine.mythic.lib.version.Attributes;
 import io.lumine.mythic.lib.version.VersionUtils;
 import net.Indyuce.mmoitems.ItemStats;
 import net.Indyuce.mmoitems.MMOItems;
@@ -21,7 +22,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.inventory.ItemFlag;
@@ -254,7 +254,7 @@ public class ItemStackBuilder {
          * modifiers, this way armor gives no ARMOR or ARMOR TOUGHNESS to the holder.
          * Since 4.7 attributes are handled via custom calculations
          */
-        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, FAKE_MODIFIER);
+        meta.addAttributeModifier(Attributes.ATTACK_SPEED, FAKE_MODIFIER);
 
         item.setItemMeta(meta);
 

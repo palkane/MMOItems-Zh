@@ -1,8 +1,8 @@
 package net.Indyuce.mmoitems.listener;
 
+import io.lumine.mythic.lib.version.Sounds;
 import net.Indyuce.mmoitems.api.interaction.util.DurabilityItem;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -116,7 +116,7 @@ public class DurabilityListener implements Listener {
         ItemStack newVersion = item.toItem();
         if (newVersion == null) {
             player.getInventory().setItem(slot, null);
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
+            player.getWorld().playSound(player.getLocation(), Sounds.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
             return;
         }
 
