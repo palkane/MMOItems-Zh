@@ -12,10 +12,10 @@ on:
         default: 'warning'
       tags:
         description: 'Test scenario tags'
-   # push:
-   #   branches: [ "Zh_cn" ]
-   # pull_request:
-   #   branches: [ "Zh_cn" ]
+    push:
+      branches: [ "Zh_cn" ]
+    pull_request:
+      branches: [ "Zh_cn" ]
 
 jobs:
   build:
